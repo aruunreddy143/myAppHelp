@@ -1,0 +1,22 @@
+<div class="loginCard">
+  <form novalidate [formGroup]="myform" (ngSubmit)="loginForm()">
+    <div class="example-container" >
+      <h1>Reset Password</h1>
+      <p class="alert alert-info" role="alert" *ngIf="resetReturnMsg">Reset successful, click to <a [routerLink]="['/login']">login</a></p>
+      <mat-form-field>
+        <input type="password" matInput placeholder="Enter Password*" formControlName="password">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput placeholder="Confirm Password*" formControlName = "confirmPassword">
+      </mat-form-field>
+
+      
+      <div *ngIf="myform.controls.confirmPassword?.errors">
+          <p *ngIf="myform.controls.confirmPassword?.errors.MatchPassword">Password not matching</p>
+      
+      </div>
+  
+      <button mat-raised-button color="primary">Reset Password</button>
+    </div>
+  </form>
+</div>

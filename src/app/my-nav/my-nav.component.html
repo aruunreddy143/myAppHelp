@@ -18,21 +18,33 @@
           </mat-panel-title>
          
         </mat-expansion-panel-header>
-        <mat-nav-list>
+        <ul class="subLinks">
+          <li>
           <a  routerLink="/">Home</a>
+        </li>
+        <li>
           <a routerLink="posts">Posts</a>
+        </li>
         
-        </mat-nav-list>
+        </ul>
        
       </mat-expansion-panel>
       <mat-expansion-panel >
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Self aware panel
+            Maps
           </mat-panel-title>
          
         </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
+        <ul class="subLinks">
+            <li>
+            <a  routerLink="/maps">esri</a>
+          </li>
+          <li>
+            <a routerLink="posts">Posts</a>
+          </li>
+          
+          </ul>
       </mat-expansion-panel>
     </mat-accordion>
   
@@ -49,6 +61,7 @@
       </button>
       <span>Application Title</span>
     </mat-toolbar>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
-  <section>Main</section>
+  
 </mat-sidenav-container>

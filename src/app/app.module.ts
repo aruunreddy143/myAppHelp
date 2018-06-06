@@ -11,6 +11,23 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
 import { DashComponent } from './dash/dash.component';
 import {MaterialModule} from './material.module';
+import { LoginComponent } from './login/login.component';
+import {HttpModule, Http, Response} from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+
+/*services*/
+import {SharedService} from "./@shared/services/shared.service";
+import {
+  ReactiveFormsModule,
+  FormsModule,
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
+import { ResetComponent } from './reset/reset.component';
+
+import {ForgotPasswordComponent} from "./auth/forgot-password/forgot-password.component";
 
 @NgModule({
   declarations: [
@@ -18,7 +35,12 @@ import {MaterialModule} from './material.module';
     DashboardComponent,
     EsriComponent,
     MyNavComponent,
-    DashComponent
+    DashComponent,
+    LoginComponent,
+    ResetComponent,
+    ForgotPasswordComponent
+    
+    
     
   ],
   imports: [
@@ -34,10 +56,14 @@ import {MaterialModule} from './material.module';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    HttpModule,
+    HttpClientModule
+    
     
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

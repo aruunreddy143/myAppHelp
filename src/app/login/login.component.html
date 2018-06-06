@@ -1,0 +1,77 @@
+<div class="loginCard">
+  <form novalidate [formGroup]="myform" (ngSubmit)="loginForm()">
+    <div class="example-container" [@visibilityChanged]="loginBox">
+      <h1>Login</h1>
+      <p  class="alert alert-info" role="alert" *ngIf="loginReturnMsg">{{loginReturnMsg}}</p>
+      <mat-form-field>
+        <input matInput placeholder="Enter Email*" formControlName="email">
+
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="password" matInput placeholder="Enter Password*" formControlName="password">
+      </mat-form-field>
+      <p class="alightRight">
+        <a href="javascript:void(0)" (click)="resetBoxes( {loginBox:false,signUpBox:false,fpassword:true})">Forgot Password?</a>
+      </p>
+      <button mat-raised-button color="primary">Login</button>
+
+      <hr class="dashed" />
+      <p class="textCenter">
+        Don't have an account?
+        <a href="javascript:void(0)" (click)="resetBoxes({loginBox:false,signUpBox:true,fpassword:false})">Sign up</a>
+      </p>
+    </div>
+  </form>
+
+  <form novalidate [formGroup]="signUpForm" (ngSubmit)="signUpSubmit()">
+    <div class="example-container" [@visibilityChanged]="signUpBox">
+      <h1>Register </h1>
+      <p  class="alert alert-info" role="alert" *ngIf="signUpReturnMsg">{{signUpReturnMsg}}</p>
+      <mat-form-field>
+        <input matInput placeholder="Username" formControlName="username">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Enter email" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="password" matInput placeholder="Password" formControlName="password">
+      </mat-form-field>
+
+      <div class="button-row">
+        <button mat-raised-button color="primary">Resgiter</button>
+      </div>
+
+      <hr class="dashed" />
+      <p>Already have an account?</p>
+      <button mat-raised-button color="primary" (click)="resetBoxes({loginBox:true,signUpBox:false,fpassword:false})">Login</button>
+
+    </div>
+  </form>
+
+
+  <form novalidate [formGroup]="forgotPasswordForm" (ngSubmit)="forgotPasswordSubmit()">
+    <div class="example-container" [@visibilityChanged]="fpassword">
+      <h1>Forgot Password</h1>
+
+      <p  class="alert alert-info" role="alert" *ngIf="forgotReturnMsg">{{forgotReturnMsg}}</p>
+
+      <mat-form-field>
+        <input matInput placeholder="Enter email" formControlName="email">
+      </mat-form-field>
+
+
+      <button mat-raised-button color="primary">Forgot Password</button>
+
+
+      <hr class="dashed" />
+      <p class="textCenter">
+        <a href="javascript:void(0)" (click)="resetBoxes({loginBox:true,signUpBox:false,fpassword:false})">Back to Login</a>
+      </p>
+
+    </div>
+  </form>
+
+</div>
