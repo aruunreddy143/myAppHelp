@@ -2,7 +2,8 @@
   <form novalidate [formGroup]="myform" (ngSubmit)="loginForm()">
     <div class="example-container" [@visibilityChanged]="loginBox">
       <h1>Login</h1>
-      <p  class="alert alert-info" role="alert" *ngIf="loginReturnMsg">{{loginReturnMsg}}</p>
+      <ng-template #alertContainer></ng-template>
+
       <mat-form-field>
         <input matInput placeholder="Enter Email*" formControlName="email">
 
@@ -27,7 +28,7 @@
   <form novalidate [formGroup]="signUpForm" (ngSubmit)="signUpSubmit()">
     <div class="example-container" [@visibilityChanged]="signUpBox">
       <h1>Register </h1>
-      <p  class="alert alert-info" role="alert" *ngIf="signUpReturnMsg">{{signUpReturnMsg}}</p>
+      <p class="alert alert-info" role="alert" *ngIf="signUpReturnMsg">{{signUpReturnMsg}}</p>
       <mat-form-field>
         <input matInput placeholder="Username" formControlName="username">
       </mat-form-field>
@@ -35,6 +36,9 @@
       <mat-form-field>
         <input matInput placeholder="Enter email" formControlName="email">
       </mat-form-field>
+      <div *ngIf="signUpForm.get('email').errors && signUpForm.get('email').errors.emailTaken">
+        😢 Oh noes, this email is already taken!
+      </div>
 
       <mat-form-field>
         <input type="password" matInput placeholder="Password" formControlName="password">
@@ -56,7 +60,7 @@
     <div class="example-container" [@visibilityChanged]="fpassword">
       <h1>Forgot Password</h1>
 
-      <p  class="alert alert-info" role="alert" *ngIf="forgotReturnMsg">{{forgotReturnMsg}}</p>
+      <p class="alert alert-info" role="alert" *ngIf="forgotReturnMsg">{{forgotReturnMsg}}</p>
 
       <mat-form-field>
         <input matInput placeholder="Enter email" formControlName="email">

@@ -1,22 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { EsriComponent } from './maps/esri/esri.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule } from '@angular/material';
-import { DashComponent } from './dash/dash.component';
-import {MaterialModule} from './material.module';
+import { MaterialModule } from './material.module';
 import { LoginComponent } from './login/login.component';
-import {HttpModule, Http, Response} from '@angular/http';
+import { HttpModule, Http, Response } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 /*services*/
-import {SharedService} from "./@shared/services/shared.service";
+import { SharedService } from "./@shared/services/shared.service";
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -27,21 +23,18 @@ import {
 } from '@angular/forms';
 import { ResetComponent } from './reset/reset.component';
 
-import {ForgotPasswordComponent} from "./auth/forgot-password/forgot-password.component";
+import { ForgotPasswordComponent } from "./auth/forgot-password/forgot-password.component";
+import { AlertComponentComponent } from './@shared/messages/alert-component/alert-component.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    EsriComponent,
-    MyNavComponent,
-    DashComponent,
     LoginComponent,
     ResetComponent,
-    ForgotPasswordComponent
-    
-    
-    
+    ForgotPasswordComponent,
+    AlertComponentComponent
+
   ],
   imports: [
     BrowserModule,
@@ -56,14 +49,20 @@ import {ForgotPasswordComponent} from "./auth/forgot-password/forgot-password.co
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    MaterialModule,
+    MaterialModule.forRoot(),
     ReactiveFormsModule,
     HttpModule,
-    HttpClientModule
-    
-    
+    HttpClientModule,
+
   ],
+  exports: [
+    MaterialModule
+  ],
+  entryComponents: [AlertComponentComponent],
   providers: [SharedService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ]
 })
 export class AppModule { }

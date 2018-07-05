@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { trigger, state, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
+import {
+  Component, OnInit, OnDestroy, ViewChild, ViewContainerRef, ComponentFactory, ComponentRef,
+  ComponentFactoryResolver, ChangeDetectorRef, TemplateRef, Output, EventEmitter
+}
+  from '@angular/core';
+import { trigger, state, style, transition, animate, keyframes, query, stagger }
+  from '@angular/animations';
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -8,13 +13,15 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-
-
+import { PasswordValidation } from "../@shared/validations/passwordValidation";
 
 import { SharedService } from "../@shared/services/shared.service";
 import { AppSettings } from "../@config/app.settings";
 
 import { Router } from "@angular/router";
+import { AlertComponentComponent } from "../@shared/messages/alert-component/alert-component.component";
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-login',
@@ -31,7 +38,7 @@ import { Router } from "@angular/router";
 
   ],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginBox: boolean = true;
   signUpBox: boolean = false;
   fpassword: boolean = false;
@@ -41,7 +48,15 @@ export class LoginComponent implements OnInit {
   forgotReturnMsg;
   loginReturnMsg;
   signUpReturnMsg;
-  constructor(private sharedService: SharedService, private router: Router, private fb: FormBuilder) { }
+
+  forgorSubscription;
+  loginSubscription: any;
+  signUpSubscription;
+  @ViewChild('alertContainer', { read: ViewContainerRef }) alertContainer: ViewContainerRef;
+
+  constructor(private sharedService: SharedService, private router: Router,
+    private fb: FormBuilder, private resolver: ComponentFactoryResolver) { }
+
 
   ngOnInit() {
     this.myform = this.fb.group({
@@ -60,7 +75,8 @@ export class LoginComponent implements OnInit {
       email: ["", [
         Validators.required,
         Validators.pattern("[^ @]*@[^ @]*")
-      ]],
+
+      ], PasswordValidation.EmailAlreadyExists(this.sharedService)],
       password: ["", [
         Validators.required,
         Validators.minLength(8)
@@ -78,16 +94,18 @@ export class LoginComponent implements OnInit {
     this.fpassword = resetObj.fpassword;
   }
 
- 
 
   loginForm() {
+
     if (this.myform.valid) {
-      this.sharedService.postJson(AppSettings.loginApi, this.myform.value).subscribe(resp => {
+      this.loginSubscription = this.sharedService.postJson(AppSettings.loginApi, this.myform.value).subscribe(resp => {
         if (resp.success) {
-          this.router.navigate(['dash']);
+          this.sharedService.setToken(resp.token);
+          this.router.navigate(['/']);
         }
         else {
-          this.loginReturnMsg = resp.error;
+          //this.loginReturnMsg = resp.error;
+          this.sharedService.addDynamicComponent(resp.error, this.alertContainer, AlertComponentComponent);
         }
       });
     }
@@ -95,7 +113,7 @@ export class LoginComponent implements OnInit {
 
   signUpSubmit() {
     if (this.signUpForm.valid) {
-      this.sharedService.postJson(AppSettings.registerApi, this.signUpForm.value).subscribe(resp => {
+      this.signUpSubscription = this.sharedService.postJson(AppSettings.registerApi, this.signUpForm.value).subscribe(resp => {
         this.signUpReturnMsg = resp.message;
       });
     }
@@ -103,10 +121,15 @@ export class LoginComponent implements OnInit {
 
   forgotPasswordSubmit() {
     if (this.forgotPasswordForm.valid) {
-      this.sharedService.postJson(AppSettings.forgotPasswordApi, this.forgotPasswordForm.value).subscribe(resp => {
+      this.forgorSubscription = this.sharedService.postJson(AppSettings.forgotPasswordApi, this.forgotPasswordForm.value).subscribe(resp => {
         this.forgotReturnMsg = resp.message;
       });
     }
   }
+
+  ngOnDestroy() {
+
+  }
+
 
 }

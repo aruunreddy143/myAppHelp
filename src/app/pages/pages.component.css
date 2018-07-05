@@ -1,0 +1,27 @@
+.sidenav-container {
+    height: 100%;
+  }
+  
+  .sidenav {
+    width: 200px;
+    box-shadow: 3px 0 6px rgba(0,0,0,.24);
+  }
+  .subLinks ,.subLinks li{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .subLinks li a{
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color:#42b983
+  }
+  .profileBtn {
+    float:right
+  }
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  

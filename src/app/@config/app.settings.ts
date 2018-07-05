@@ -5,5 +5,6 @@ export class AppSettings {
     public static registerApi=AppSettings.hostUrl+"/api";
     public static resetPasswordApi=AppSettings.hostUrl+"/api/reset";
     public static forgotPasswordApi=AppSettings.hostUrl+"/api/forgot_password";
-    
+    public static emailAlreadyExits=AppSettings.hostUrl+"/api/emailAlreadyExists";
+
 }

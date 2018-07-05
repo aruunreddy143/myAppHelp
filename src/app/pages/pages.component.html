@@ -1,0 +1,91 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'" [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
+    [opened]="!(isHandset | async)!.matches">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+
+
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Personal data
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <ul class="subLinks">
+          <li>
+            <a routerLink="/">Home</a>
+          </li>
+          <li>
+            <a routerLink="posts">Posts</a>
+          </li>
+
+        </ul>
+
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            UI Components
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <ul class="subLinks">
+          <li>
+            <a routerLink="/input">Input</a>
+          </li>
+          <li>
+            <a routerLink="posts">Posts</a>
+          </li>
+
+        </ul>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Application Title</span>
+      <span class="example-spacer"></span>
+
+      <i class="fa fa-arrows-alt" aria-hidden="true" appFullScreen></i>
+      <button aria-haspopup="true" mat-icon-button [matMenuTriggerFor]="menu" class="mat-icon-button profileBtn">
+        <span class="mat-button-wrapper">
+          <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">account_circle</mat-icon>
+        </span>
+      </button>
+      <mat-menu #menu="matMenu" [overlapTrigger]="false">
+
+        <a class="mat-menu-item" mat-menu-item="" role="menuitem" [routerLink]="['/profile']" tabindex="0" aria-disabled="false">
+          <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">person</mat-icon>
+          <span>Profile</span>
+          <div class="mat-menu-ripple mat-ripple" matripple=""></div>
+        </a>
+        <a class="mat-menu-item" mat-menu-item="" role="menuitem" routerlink="settings" tabindex="0" aria-disabled="false" href="/settings">
+          <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">settings</mat-icon>
+          <span>Settings</span>
+          <div class="mat-menu-ripple mat-ripple" matripple=""></div>
+        </a>
+        <a class="mat-menu-item" mat-menu-item="" role="menuitem" routerlink="help" tabindex="0" aria-disabled="false" href="/help">
+          <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon>
+          <span>Help</span>
+          <div class="mat-menu-ripple mat-ripple" matripple=""></div>
+        </a>
+        <div class="divider"></div>
+        <a class="mat-menu-item" mat-menu-item="" role="menuitem" tabindex="0" aria-disabled="false" (click)="logOut()">
+          <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">power_settings_new</mat-icon>
+          <span>Log out</span>
+          <div class="mat-menu-ripple mat-ripple" matripple=""></div>
+        </a>
+      </mat-menu>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+
+
+</mat-sidenav-container>

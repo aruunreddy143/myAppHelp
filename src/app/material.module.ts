@@ -76,4 +76,8 @@ import {
     MatPaginatorModule
   ]
 })
-export class MaterialModule {}
+export class MaterialModule {
+  static forRoot() {
+    return { ngModule: MaterialModule, providers: [MatTabsModule] };
+  }
+}
